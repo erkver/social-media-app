@@ -5,13 +5,13 @@ module.exports = {
     try {
       const db = req.app.get('db');
       const { username, pic } = req.body;
-      const result = await db.login_user(username);
+      const result = await db.user.login_user(username);
       const exisitingUser = result[0];
       if (exisitingUser) {
         return res.status(409).json('Username taken');
       }
       const password = await bcrypt.hash(req.body.password, 12);
-      const newUser = await db.register_user([username, password, pic]);
+      const newUser = await db.user.register_user([username, password, pic]);
       const user = newUser[0];
       req.session.user = {
         id: user.id,
@@ -27,7 +27,7 @@ module.exports = {
   login: async (req, res) => {
     try {
       const { username, password } = req.body;
-      const result = await req.app.get('db').login_user(username);
+      const result = await req.app.get('db').user.login_user(username);
       if (!result[0]) {
         return res.status(500).json('Please register');
       }
