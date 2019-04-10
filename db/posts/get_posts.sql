@@ -1,2 +1,2 @@
 SELECT *
-FROM posts;
+FROM posts p;

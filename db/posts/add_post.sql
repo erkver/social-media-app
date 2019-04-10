@@ -1,0 +1,5 @@
+INSERT INTO posts
+  (text, image, userId)
+VALUES
+  ($1, $2, $3)
+RETURNING *;

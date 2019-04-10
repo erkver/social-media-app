@@ -12,6 +12,20 @@ const {
   logout
 } = require('./controllers/auth_controller');
 const { updateUser } = require('./controllers/user_controller');
+const {
+  getPosts,
+  getPost,
+  addPost,
+  editPost,
+  deletePost
+} = require('./controllers/post_controller');
+const {
+  getComments,
+  getComment,
+  addComment,
+  editComment,
+  deleteComment
+} = require('./controllers/comment_controller');
 
 app.use(json());
 
@@ -36,7 +50,20 @@ app.post('/auth/login', login);
 app.get('/auth/me', getUser);
 app.get('/auth/logout', logout);
 
-//user endpoint
-app.post('/api/user/:id', updateUser);
+//user profile endpoint
+app.put('/api/user/:id', updateUser);
+
+//post endpoints
+app.get('/api/posts', getPosts);
+app.get('/api/post/:id', getPost);
+app.post('/api/post', addPost);
+app.put('/api/post/:id', editPost);
+app.delete('/api/post/:id', deletePost);
+
+app.get('/api/comments/:id', getComments);
+app.get('/api/comment/:id', getComment);
+app.post('/api/comment', addComment);
+app.put('/api/comment/:id', editComment);
+app.delete('/api/comment/:id', deleteComment);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
